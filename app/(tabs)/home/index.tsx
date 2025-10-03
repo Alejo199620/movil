@@ -7,17 +7,17 @@ const HomeScreen = () => {
     return (
         <View className="flex-1 justify-center px-10 bg-background pt-12">
 
-            {/* Mensaje principal */}
+
             <Text className="text-3xl font-lato-black text-center mb-2 text-primary">
                 ¡Bienvenido!
             </Text>
 
-            {/* Subtítulo */}
+
             <Text className="text-lg font-lato-regular text-center mb-8 text-secundary-DEFAULT">
                 Descubre recetas deliciosas y guarda tus favoritas
             </Text>
 
-            {/* Botones */}
+
             <CustomButton
                 color="primary"
                 className="px-10 mb-4 font-lato-regular"
