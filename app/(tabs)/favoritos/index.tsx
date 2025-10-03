@@ -1,11 +1,11 @@
 import RecipeCard from "@/components/shared/RecipeCard";
-import { useFavoritos } from "@/store/favoritos.store"; // 👈 nuevo hook
+import { useFavoritos } from "@/store/favoritos.store";
 import { getRecetas } from "@/store/recetas.store";
 import { Ionicons } from "@expo/vector-icons";
 import { FlatList, Text, View } from "react-native";
 
 export default function FavoritosIndex() {
-    const favoritosIds = useFavoritos(); // 👈 siempre actualizado
+    const favoritosIds = useFavoritos();
     const recetas = getRecetas();
     const favoritas = recetas.filter((r) => favoritosIds.includes(r.id));
 
