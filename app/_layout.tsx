@@ -1,24 +1,38 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { useFonts } from 'expo-font';
+import { Slot, SplashScreen } from 'expo-router';
+import React, { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import './global.css';
+SplashScreen.preventAutoHideAsync();
+const RootLayout = () => {
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+    const [fontsLoaded, error] = useFonts({
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+        "Lato-Regular": require("../assets/fonts/Lato-Regular.ttf"),
+        "Lato-Black": require("../assets/fonts/Lato-Black.ttf"),
+        "Lato-Italic": require("../assets/fonts/Lato-Italic.ttf"),
+        "Lato-Bold": require("../assets/fonts/Lato-Bold.ttf"),
+    });
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    useEffect(() => {
+        if (error) throw error;
+        if (fontsLoaded) SplashScreen.hideAsync();
+
+    }, [fontsLoaded, error])
+
+    if (!fontsLoaded && !error) return null;
+
+
+    // return <Slot /> esto me muestra todo lo que tiene cargado el router como hijo osea siempre 
+    // va a mostrar el index de cada carpeta ahora  va a ser un stack 
+    // return <Stack />
+    return (
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <Slot />
+        </GestureHandlerRootView>
+    )
 }
+
+
+export default RootLayout
